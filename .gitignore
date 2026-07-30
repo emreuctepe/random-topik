@@ -1,0 +1,9 @@
+# İşletim sistemi / editör artıkları
+.DS_Store
+Thumbs.db
+*.swp
+.idea/
+.vscode/
+
+# Claude Code yerel ayarları (launch.json paylaşılıyor, bu kişisel)
+.claude/settings.local.json

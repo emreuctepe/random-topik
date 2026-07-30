@@ -1,0 +1,30 @@
+/* ============================================================
+   panel-about.css — sol sütun
+   Şimdilik sadece 3 düz yazı. İleride görseldeki kartlara
+   dönüşecek (renkli sol kenarlık vs.) — o zaman burası büyüyecek.
+   ============================================================ */
+
+.about {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+
+  scrollbar-width: thin;
+  scrollbar-color: var(--fg-faint) transparent;
+}
+.about::-webkit-scrollbar { width: 6px; }
+.about::-webkit-scrollbar-thumb {
+  background: var(--fg-faint);
+  border-radius: 3px;
+}
+
+.about__line {
+  font-size: 0.82rem;
+  line-height: 1.75;
+  color: var(--fg-dim);
+  text-wrap: pretty;
+}

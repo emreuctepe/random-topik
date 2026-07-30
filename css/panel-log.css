@@ -1,0 +1,76 @@
+/* ============================================================
+   panel-log.css — kayıt listesi
+   Kelime solda, saat sağda, arası noktalarla dolu (dotted leader).
+   ============================================================ */
+
+.log__scroll {
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+
+  /* ince, sessiz scrollbar */
+  scrollbar-width: thin;
+  scrollbar-color: var(--fg-faint) transparent;
+}
+.log__scroll::-webkit-scrollbar { width: 6px; }
+.log__scroll::-webkit-scrollbar-thumb {
+  background: var(--fg-faint);
+  border-radius: 3px;
+}
+
+.log {
+  font-family: var(--font-log);
+  font-size: 0.75rem;
+  line-height: 1.9;
+  color: var(--fg-dim);
+}
+
+.log-row {
+  display: flex;
+  align-items: baseline;
+  gap: 0.35rem;
+}
+
+/* sola yaslı kelime */
+.log-word {
+  flex: 0 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--fg-dim);
+}
+
+/* aradaki noktalar — kalan boşluğu doldurur */
+.log-dots {
+  flex: 1 1 auto;
+  min-width: 0.75rem;
+  align-self: center;
+  height: 0;
+  border-bottom: 1px dotted var(--fg-faint);
+  transform: translateY(0.25em);
+}
+
+/* sağa yaslı tarih-saat */
+.log-time {
+  flex: 0 0 auto;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+  color: var(--fg-dim);
+}
+
+/* En yeni kayıt bir tık daha okunur olsun */
+.log-row:first-child .log-word,
+.log-row:first-child .log-time { color: var(--fg); }
+
+/* Liste boşken */
+.log__empty {
+  font-family: var(--font-log);
+  font-size: 0.75rem;
+  color: var(--fg-faint);
+}
+.log__empty[hidden] { display: none; }
+
+@media (max-width: 860px) {
+  .log__scroll { max-height: 45vh; }
+}

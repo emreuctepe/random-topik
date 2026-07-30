@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <title>random topik</title>
+
+  <!-- CSS dosyaları sırayla yüklenir: önce temel, sonra düzen, sonra paneller -->
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/panel-about.css">
+  <link rel="stylesheet" href="css/panel-main.css">
+  <link rel="stylesheet" href="css/panel-log.css">
+</head>
+<body>
+  <main class="app">
+
+    <!-- ============ SOL: bu site neden var? ============ -->
+    <section class="panel panel--about">
+      <h2 class="panel__title" data-i18n="aboutTitle"></h2>
+      <div class="about" id="about"></div>
+    </section>
+
+    <!-- ============ ORTA: dil + slot ============ -->
+    <section class="panel panel--main">
+      <header class="main__head">
+        <!-- dil dropdown'ı buraya JS ile basılır -->
+        <div class="lang" id="lang"></div>
+
+        <div class="main__brand">
+          <h1 class="main__title" data-i18n="siteTitle"></h1>
+          <span class="main__version" id="version"></span>
+        </div>
+      </header>
+
+      <div class="main__body">
+        <div class="slot">
+          <div class="slot__viewport">
+            <div class="slot__reel" id="slot-reel"></div>
+          </div>
+          <!-- ortadaki kelimeyi çerçeveleyen iki ince çizgi -->
+          <span class="slot__marker slot__marker--top" aria-hidden="true"></span>
+          <span class="slot__marker slot__marker--bottom" aria-hidden="true"></span>
+        </div>
+
+        <!-- ekran okuyucular için: sonuç sadece slot durunca duyurulur -->
+        <p class="sr-only" id="slot-result" aria-live="polite" role="status"></p>
+
+        <button class="again" id="again" type="button" data-i18n="again"></button>
+      </div>
+    </section>
+
+    <!-- ============ SAĞ: kayıt ============ -->
+    <section class="panel panel--log">
+      <h2 class="panel__title" data-i18n="logTitle"></h2>
+      <div class="log__scroll">
+        <ol class="log" id="log-list"></ol>
+        <p class="log__empty" id="log-empty" data-i18n="logEmpty"></p>
+      </div>
+    </section>
+
+  </main>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>

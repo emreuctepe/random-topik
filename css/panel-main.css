@@ -1,0 +1,183 @@
+/* ============================================================
+   panel-main.css — dil dropdown'ı, slot ve "tekrar seç"
+   ============================================================ */
+
+/* ---------- Üst satır: [dil] ......... [başlık + versiyon] ---------- */
+.main__head {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* Başlık ve versiyon birlikte sağa yaslanır */
+.main__brand {
+  grid-column: 2;
+  justify-self: end;
+  display: flex;
+  align-items: baseline;
+  gap: 0.45rem;
+  min-width: 0;
+}
+
+.main__title {
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+}
+
+.main__version {
+  font-family: var(--font-log);
+  font-size: 0.68rem;
+  color: var(--fg-faint);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+/* ---------- Dil dropdown ---------- */
+.lang {
+  position: relative;
+  grid-column: 1;
+  justify-self: start;
+}
+
+.lang__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.25rem 0.4rem;
+  border-radius: var(--radius);
+  font-size: 0.9rem;
+  color: var(--fg-dim);
+  transition: color 0.15s ease;
+}
+.lang__btn:hover,
+.lang__btn[aria-expanded="true"] { color: var(--fg); }
+
+.lang__caret {
+  font-size: 0.65em;
+  transition: transform 0.15s ease;
+}
+.lang__btn[aria-expanded="true"] .lang__caret { transform: rotate(180deg); }
+
+.lang__menu {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  z-index: 10;
+  min-width: 5rem;
+  padding: 0.25rem;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: 0 8px 24px rgb(0 0 0 / 0.45);
+}
+.lang__menu[hidden] { display: none; }
+
+.lang__option {
+  padding: 0.35rem 0.55rem;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  color: var(--fg-dim);
+  cursor: pointer;
+  transition: background 0.12s ease, color 0.12s ease;
+}
+.lang__option:hover,
+.lang__option:focus-visible { background: #191c1f; color: var(--fg); }
+.lang__option[aria-selected="true"] { color: var(--fg); }
+
+/* ---------- Orta gövde ---------- */
+.main__body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3.5rem;          /* slot ile "tekrar seç" arasındaki mesafe */
+  padding-block: 2rem;
+}
+
+/* ---------- Slot ---------- */
+.slot {
+  position: relative;
+  width: 100%;
+}
+
+.slot__viewport {
+  position: relative;
+  height: calc(var(--slot-row) * 3);   /* 3 satır görünür */
+  overflow: hidden;
+
+  /* üst ve alt kenarlar zemine doğru erisin */
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 26%, #000 74%, transparent 100%);
+          mask-image: linear-gradient(to bottom, transparent 0%, #000 26%, #000 74%, transparent 100%);
+}
+
+.slot__reel {
+  position: absolute;
+  inset: 0;
+}
+
+/* Satırlar JS tarafından transform ile konumlandırılır */
+.slot__row {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: var(--slot-row);
+  margin-top: calc(var(--slot-row) / -2);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: clamp(1.05rem, 2.2vw, 1.35rem);
+  font-weight: 500;
+  color: var(--fg);
+  white-space: nowrap;
+  text-align: center;
+  padding-inline: 0.5rem;
+
+  backface-visibility: hidden;
+}
+
+/* will-change sadece dönerken açık: sürekli açık kalırsa tarayıcı bu 5 satır
+   için kalıcı compositor katmanı tutar (boşuna bellek + pil). */
+.slot__reel.is-spinning .slot__row {
+  will-change: transform, opacity, filter;
+}
+
+/* Ortadaki kelimeyi üstten ve alttan çerçeveleyen iki ince çizgi.
+   Konumları --slot-row'a bağlı, yani satır yüksekliğini değiştirirsen
+   çizgiler de kendiliğinden takip eder. */
+.slot__marker {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(210px, 60%);
+  height: 1px;
+  background: var(--fg-faint);
+}
+
+.slot__marker--top    { top: calc(50% - var(--slot-row) / 2); }
+.slot__marker--bottom { top: calc(50% + var(--slot-row) / 2); }
+
+/* ---------- "tekrar seç" ---------- */
+.again {
+  padding: 0.3rem 0.2rem;
+  font-size: 0.85rem;
+  color: var(--fg-dim);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-color: var(--fg-faint);
+  transition: color 0.15s ease, text-decoration-color 0.15s ease;
+}
+.again:hover:not(:disabled) {
+  color: var(--fg);
+  text-decoration-color: var(--fg-dim);
+}
+.again:disabled {
+  cursor: default;
+  opacity: 0.45;
+}

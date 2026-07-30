@@ -1,0 +1,53 @@
+/* ============================================================
+   layout.css — 3 sütunlu düzen ve mobilde alt alta yığılma
+   ============================================================ */
+
+.app {
+  display: grid;
+  grid-template-columns:
+    minmax(190px, 1fr)      /* sol  : bu site neden var? */
+    minmax(300px, 1.5fr)    /* orta : slot              */
+    minmax(190px, 1fr);     /* sağ  : kayıt             */
+  gap: var(--gap);
+  align-items: start;
+
+  min-height: 100dvh;
+  max-width: 1400px;
+  margin-inline: auto;
+  padding: var(--gap);
+}
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  min-width: 0;    /* uzun kelimeler sütunu taşırmasın */
+  min-height: 0;   /* grid içinde iç scroll'un çalışması için şart */
+}
+
+/* Sol ve sağ sütun ekran yüksekliğini aşmasın, kendi içinde kaysın */
+.panel--about,
+.panel--log {
+  max-height: calc(100dvh - var(--gap) * 2);
+}
+
+.panel--main {
+  min-height: calc(100dvh - var(--gap) * 2);
+}
+
+/* ============ MOBİL: her şey alt alta ============ */
+@media (max-width: 860px) {
+  .app {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+    padding-block: 1.75rem;
+  }
+
+  /* mobilde önce slot görünsün, sonra açıklama, sonra kayıt */
+  .panel--main  { order: 1; min-height: 0; }
+  .panel--about { order: 2; }
+  .panel--log   { order: 3; }
+
+  .panel--about,
+  .panel--log { max-height: none; }
+}

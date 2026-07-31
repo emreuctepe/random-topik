@@ -4,10 +4,10 @@
    ========================================================================== */
 
 /**
- * Sürüm numarası — başlığın yanında görünür.
- * Elle artır: yama = 0.1.1, yeni özellik = 0.2.0, büyük değişiklik = 1.0.0
+ * Sürüm numarası — başlığın solunda, depo linki olarak görünür.
+ * HER değişiklikte son haneyi bir artır: 0.1.1 -> 0.1.2 -> 0.1.3 ...
  */
-export const APP_VERSION = '0.1.0';
+export const APP_VERSION = '0.1.1';
 
 /** Versiyon göstergesinin tıklandığında gideceği adres. */
 export const REPO_URL = 'https://github.com/emreuctepe/random-topik';

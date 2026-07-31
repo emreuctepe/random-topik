@@ -18,11 +18,7 @@ export function createLangSwitcher(root) {
   button.setAttribute('aria-haspopup', 'listbox');
   button.setAttribute('aria-expanded', 'false');
 
-  // Bayrak emojisi ekran okuyucuya okutulmaz — hemen yanında etiketi yazıyor
-  const currentFlag = document.createElement('span');
-  currentFlag.className = 'lang__flag';
-  currentFlag.setAttribute('aria-hidden', 'true');
-
+  // Butonda bayrak yok, sadece dil kodu — bayraklar açılır menüdeki kutularda
   const current = document.createElement('span');
   current.className = 'lang__current';
 
@@ -31,7 +27,7 @@ export function createLangSwitcher(root) {
   caret.textContent = '▾';           // ▾
   caret.setAttribute('aria-hidden', 'true');
 
-  button.append(currentFlag, current, caret);
+  button.append(current, caret);
 
   /* --- Menü --- */
   const menu = document.createElement('ul');
@@ -67,7 +63,6 @@ export function createLangSwitcher(root) {
     const active = LANGS.find((lang) => lang.code === code);
 
     current.textContent = active?.label ?? code;
-    currentFlag.textContent = active?.flag ?? '';
     button.setAttribute('aria-label', t('langLabel'));
     options.forEach((option) => {
       option.setAttribute('aria-selected', String(option.dataset.lang === code));

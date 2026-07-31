@@ -72,5 +72,12 @@
 .log__empty[hidden] { display: none; }
 
 @media (max-width: 860px) {
-  .log__scroll { max-height: 45vh; }
+  .log__scroll {
+    flex: 1;              /* tam ekran panelin kalanını doldur */
+    max-height: none;
+
+    /* Liste ucuna gelince kaydırma .app'e devredilsin ki parmağını
+       kaldırmadan bir önceki panele geçebilesin (contain bunu engelliyordu). */
+    overscroll-behavior-y: auto;
+  }
 }

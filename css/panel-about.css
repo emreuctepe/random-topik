@@ -28,3 +28,14 @@
   color: var(--fg-dim);
   text-wrap: pretty;
 }
+
+@media (max-width: 860px) {
+  .about {
+    flex: 0 1 auto;       /* dikeyde ortalanabilsin diye büyümesin */
+
+    /* Yazı ucuna gelince kaydırma .app'e devredilsin (panel geçişi kesilmesin) */
+    overscroll-behavior-y: auto;
+  }
+
+  .about__line { font-size: 0.95rem; }   /* tam ekranda daha rahat okunsun */
+}

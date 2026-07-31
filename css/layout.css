@@ -35,19 +35,50 @@
   min-height: calc(100dvh - var(--gap) * 2);
 }
 
-/* ============ MOBİL: her şey alt alta ============ */
+/* ============ MOBİL: tam ekran panel + mıknatıslı kaydırma ============
+   Reels / Shorts mekaniği. İki önemli tercih:
+
+   1) Kaydırılan şey sayfa gövdesi değil, .app'in kendisi. Gövde kaydırılsaydı
+      tarayıcının adres çubuğu açılıp kapanır, 100dvh her seferinde değişir ve
+      mıknatıs noktaları kayardı. Sabit yükseklikli bir kap bunu tamamen önler.
+
+   2) display: flex (block değil) — çünkü panellerin mobil sırasını `order`
+      ile değiştiriyoruz ve order yalnızca flex/grid içinde çalışır.
+   ==================================================================== */
 @media (max-width: 860px) {
+  body { overflow: hidden; }        /* kaydırma .app'e ait */
+
   .app {
-    grid-template-columns: 1fr;
-    gap: 2.5rem;
-    padding-block: 1.75rem;
+    display: flex;
+    flex-direction: column;
+    /* Masaüstündeki `align-items: start` dikey flex'e taşınırsa panelleri
+       içerik genişliğine daraltır — tam ekran için stretch şart. */
+    align-items: stretch;
+    gap: 0;
+    padding: 0;
+    max-width: none;
+
+    height: 100dvh;
+    overflow-y: auto;
+    scroll-snap-type: y mandatory;
+    overscroll-behavior-y: contain;  /* en alttan aşağı çekince sayfa yenilenmesin */
+
+    scrollbar-width: none;
+  }
+  .app::-webkit-scrollbar { display: none; }
+
+  .panel {
+    flex: 0 0 auto;
+    height: 100dvh;
+    max-height: none;
+    padding: var(--gap);
+
+    scroll-snap-align: start;
+    scroll-snap-stop: always;        /* bir hamlede tek panel geçilsin */
   }
 
   /* mobilde önce slot görünsün, sonra açıklama, sonra kayıt */
   .panel--main  { order: 1; min-height: 0; }
-  .panel--about { order: 2; }
+  .panel--about { order: 2; justify-content: center; }
   .panel--log   { order: 3; }
-
-  .panel--about,
-  .panel--log { max-height: none; }
 }

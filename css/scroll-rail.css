@@ -17,7 +17,16 @@
 
     z-index: 20;
     pointer-events: none;   /* içeriğe dokunmayı engellemesin */
-    transition: opacity 0.2s ease;
+
+    /* Kaydırırken görünür, hareketsizlikte kaybolur (scrollRail.js -> HIDE_DELAY).
+       Görünürken anında gelsin, kaybolurken yumuşasın. */
+    opacity: 0;
+    transition: opacity 0.5s ease;
+  }
+
+  .scroll-rail.is-active {
+    opacity: 1;
+    transition: opacity 0.12s ease;
   }
 
   .scroll-rail__thumb {
@@ -30,7 +39,5 @@
   }
 }
 
-/* Hareket azaltma tercihinde renk anında değişsin, geçiş olmasın */
-@media (prefers-reduced-motion: reduce) {
-  .scroll-rail__thumb { transition: none; }
-}
+/* Not: hareket azaltma tercihinde geçişleri base.css genel olarak kısıyor,
+   burada ayrıca bir kural gerekmiyor. */

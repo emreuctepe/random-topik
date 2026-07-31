@@ -15,10 +15,26 @@
 
 import { randomVividColor } from '../core/color.js';
 
-const MIN_THUMB = 24;   // px — çok kısalıp kaybolmasın
+/* --- Ayarlanabilir değerler --- */
+const MIN_THUMB  = 24;     // px — gösterge çok kısalıp kaybolmasın
+const HIDE_DELAY = 2000;   // ms — bu kadar hareketsizlikten sonra kaybolsun
 
 export function createScrollRail({ scrollerEl, railEl, thumbEl, panelSelector }) {
   let ticking = false;
+  let hideTimer = 0;
+
+  /* --- Görünürlük: kaydırırken görünür, durunca kaybolur --- */
+
+  function show() {
+    railEl.classList.add('is-active');
+    clearTimeout(hideTimer);
+    hideTimer = setTimeout(hide, HIDE_DELAY);
+  }
+
+  function hide() {
+    clearTimeout(hideTimer);
+    railEl.classList.remove('is-active');
+  }
 
   function draw() {
     ticking = false;
@@ -26,13 +42,12 @@ export function createScrollRail({ scrollerEl, railEl, thumbEl, panelSelector })
     const { scrollTop, scrollHeight, clientHeight } = scrollerEl;
     const railHeight = railEl.clientHeight;
 
-    // Kaydırma yoksa (masaüstü düzeni) göstergeyi gizle
+    // Kaydırma yoksa (masaüstü düzeni) gösterge hiç görünmesin
     const scrollable = scrollHeight - clientHeight;
     if (scrollable <= 0 || railHeight <= 0) {
-      railEl.style.opacity = '0';
+      hide();
       return;
     }
-    railEl.style.opacity = '';
 
     const thumbHeight = Math.max(MIN_THUMB, (clientHeight / scrollHeight) * railHeight);
     const progress = scrollTop / scrollable;
@@ -42,6 +57,7 @@ export function createScrollRail({ scrollerEl, railEl, thumbEl, panelSelector })
   }
 
   function onScroll() {
+    show();               // rAF beklemeden anında görünsün
     if (ticking) return;
     ticking = true;
     requestAnimationFrame(draw);
@@ -75,5 +91,8 @@ export function createScrollRail({ scrollerEl, railEl, thumbEl, panelSelector })
   setAccent();
   draw();
 
-  return { draw, setAccent };
+  // Açılışta kısa süre görünsün — sayfanın kaydığını belli eder, sonra kaybolur
+  if (scrollerEl.scrollHeight > scrollerEl.clientHeight) show();
+
+  return { draw, setAccent, show, hide };
 }

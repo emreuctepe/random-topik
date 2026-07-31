@@ -18,6 +18,11 @@ export function createLangSwitcher(root) {
   button.setAttribute('aria-haspopup', 'listbox');
   button.setAttribute('aria-expanded', 'false');
 
+  // Bayrak emojisi ekran okuyucuya okutulmaz — hemen yanında etiketi yazıyor
+  const currentFlag = document.createElement('span');
+  currentFlag.className = 'lang__flag';
+  currentFlag.setAttribute('aria-hidden', 'true');
+
   const current = document.createElement('span');
   current.className = 'lang__current';
 
@@ -26,7 +31,7 @@ export function createLangSwitcher(root) {
   caret.textContent = '▾';           // ▾
   caret.setAttribute('aria-hidden', 'true');
 
-  button.append(current, caret);
+  button.append(currentFlag, current, caret);
 
   /* --- Menü --- */
   const menu = document.createElement('ul');
@@ -40,7 +45,16 @@ export function createLangSwitcher(root) {
     option.setAttribute('role', 'option');
     option.dataset.lang = lang.code;
     option.tabIndex = -1;
-    option.textContent = lang.label;
+
+    const flag = document.createElement('span');
+    flag.className = 'lang__flag';
+    flag.setAttribute('aria-hidden', 'true');
+    flag.textContent = lang.flag;
+
+    const label = document.createElement('span');
+    label.textContent = lang.label;
+
+    option.append(flag, label);
     menu.appendChild(option);
     return option;
   });
@@ -50,7 +64,10 @@ export function createLangSwitcher(root) {
   /* --- Durum --- */
   function syncLabels() {
     const code = getLang();
-    current.textContent = LANGS.find((lang) => lang.code === code)?.label ?? code;
+    const active = LANGS.find((lang) => lang.code === code);
+
+    current.textContent = active?.label ?? code;
+    currentFlag.textContent = active?.flag ?? '';
     button.setAttribute('aria-label', t('langLabel'));
     options.forEach((option) => {
       option.setAttribute('aria-selected', String(option.dataset.lang === code));

@@ -9,18 +9,22 @@
  */
 export const APP_VERSION = '0.1.0';
 
+/** Versiyon göstergesinin tıklandığında gideceği adres. */
+export const REPO_URL = 'https://github.com/emreuctepe/random-topik';
+
 /**
  * Desteklenen diller.
  *  code  : dictionary.js içindeki anahtar (tr / eng / jp)
  *  label : ekranda görünen etiket
+ *  flag  : etiketin yanındaki bayrak emojisi
  *  html  : <html lang="..."> için standart kod (erişilebilirlik/SEO)
  *
  * Yeni dil eklemek: buraya bir satır + dictionary.js'teki her satıra karşılığı.
  */
 export const LANGS = [
-  { code: 'tr',  label: 'tr',  html: 'tr' },
-  { code: 'eng', label: 'eng', html: 'en' },
-  { code: 'jp',  label: 'jp',  html: 'ja' },
+  { code: 'tr',  label: 'tr',  flag: '🇹🇷', html: 'tr' },
+  { code: 'eng', label: 'eng', flag: '🇬🇧', html: 'en' },
+  { code: 'jp',  label: 'jp',  flag: '🇯🇵', html: 'ja' },
 ];
 
 /** Açılışta seçili dil + çeviri eksikse düşülecek dil. */

@@ -3,7 +3,7 @@
    Parçaları birbirine bağlar. İş mantığı yok, sadece kurulum.
    ========================================================================== */
 
-import { APP_VERSION } from './core/config.js';
+import { APP_VERSION, REPO_URL } from './core/config.js';
 import { getLangMeta, onLangChange, t } from './core/i18n.js';
 import * as logStore from './core/logStore.js';
 
@@ -31,8 +31,10 @@ function applyStaticText() {
 function init() {
   const againBtn = $('again');
 
-  // Sürüm numarası dile bağlı değil, bir kez yazılır
-  $('version').textContent = `v${APP_VERSION}`;
+  // Sürüm göstergesi dile bağlı değil, bir kez yazılır — aynı zamanda depo linki
+  const versionEl = $('version');
+  versionEl.textContent = `v${APP_VERSION}`;
+  versionEl.href = REPO_URL;
 
   createAboutPanel($('about'));
   createLangSwitcher($('lang'));

@@ -10,18 +10,18 @@
 
   /* ince, sessiz scrollbar */
   scrollbar-width: thin;
-  scrollbar-color: var(--fg-faint) transparent;
+  scrollbar-color: var(--line) transparent;
 }
 .log__scroll::-webkit-scrollbar { width: 6px; }
 .log__scroll::-webkit-scrollbar-thumb {
-  background: var(--fg-faint);
+  background: var(--line);
   border-radius: 3px;
 }
 
 .log {
   font-family: var(--font-log);
-  font-size: 0.75rem;
-  line-height: 1.9;
+  font-size: 0.78rem;   /* Japonca karakterler daha küçükte okunmuyordu */
+  line-height: 1.95;
   color: var(--fg-dim);
 }
 
@@ -47,7 +47,7 @@
   min-width: 0.75rem;
   align-self: center;
   height: 0;
-  border-bottom: 1px dotted var(--fg-faint);
+  border-bottom: 1px dotted var(--line);
   transform: translateY(0.25em);
 }
 
@@ -63,10 +63,10 @@
 .log-row:first-child .log-word,
 .log-row:first-child .log-time { color: var(--fg); }
 
-/* Liste boşken */
+/* Liste boşken (dekoratif değil, yazı — okunur bir renk kullan) */
 .log__empty {
   font-family: var(--font-log);
-  font-size: 0.75rem;
+  font-size: 0.78rem;
   color: var(--fg-faint);
 }
 .log__empty[hidden] { display: none; }

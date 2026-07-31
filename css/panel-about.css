@@ -14,11 +14,11 @@
   overscroll-behavior: contain;
 
   scrollbar-width: thin;
-  scrollbar-color: var(--fg-faint) transparent;
+  scrollbar-color: var(--line) transparent;
 }
 .about::-webkit-scrollbar { width: 6px; }
 .about::-webkit-scrollbar-thumb {
-  background: var(--fg-faint);
+  background: var(--line);
   border-radius: 3px;
 }
 

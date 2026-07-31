@@ -4,19 +4,28 @@
    ============================================================ */
 
 :root {
-  /* --- Renkler --- */
+  /* --- Renkler ---
+     Parantezdeki değerler --bg zeminine karşı kontrast oranı.
+     WCAG AA normal metin için 4.5:1, AAA için 7:1 ister. */
   --bg:        #101214;   /* ana zemin (tüm paneller aynı) */
-  --fg:        #e9ecef;   /* birincil yazı */
-  --fg-dim:    #6f7680;   /* soluk yazı, noktalar, saat */
-  --fg-faint:  #3d434a;   /* en soluk (çizgiler, pasif) */
-  --line:      #23262a;   /* ince ayraç çizgileri */
+  --fg:        #f2f4f6;   /* birincil yazı            (17.0:1) */
+  --fg-dim:    #9aa3ad;   /* ikincil: açıklama, log    (7.3:1) */
+  --fg-faint:  #7d8792;   /* üçüncül: versiyon, boş liste (5.1:1) */
+  --line:      #4d555e;   /* dekoratif: çizgiler, noktalar, kenarlıklar */
+  --surface:   #1b1f23;   /* menü hover zemini */
   --focus:     #7aa2ff;   /* klavye odak halkası */
 
-  /* --- Fontlar --- */
+  /* --- Fontlar ---
+     Latin harfler sistem fontundan gelir; tarayıcı yazı tipini harf harf
+     seçtiği için sadece Japonca karakterler "Noto Sans JP"ye düşer.
+     O yüzden JP fontu listede sona yakın duruyor — Latin metnin görünümü
+     değişmesin diye. Font index.html'de Google Fonts'tan yükleniyor ve
+     unicode-range sayesinde yalnızca Japonca gösterilirken indiriliyor. */
   --font:      ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
-               "Helvetica Neue", Arial, "Noto Sans JP", "Hiragino Sans", Meiryo, sans-serif;
+               "Helvetica Neue", Arial,
+               "Noto Sans JP", "Hiragino Sans", "Yu Gothic UI", Meiryo, sans-serif;
   --font-log:  ui-monospace, SFMono-Regular, Menlo, Consolas,
-               "Noto Sans JP", "Hiragino Sans", Meiryo, monospace;
+               "Noto Sans JP", "Hiragino Sans", "Yu Gothic UI", Meiryo, monospace;
 
   /* --- Ölçüler --- */
   --gap:       clamp(1.25rem, 3vw, 2.5rem);  /* sütunlar arası boşluk */

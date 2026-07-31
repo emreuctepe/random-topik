@@ -6,6 +6,14 @@
   <meta name="color-scheme" content="dark">
   <title>random topik</title>
 
+  <!-- Japonca için Noto Sans JP. Google Fonts unicode-range ile parçalara
+       böldüğü için dosya yalnızca Japonca karakter ekrana geldiğinde iner;
+       tr/eng kullanırken hiçbir şey indirilmez. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500&display=swap">
+
   <!-- CSS dosyaları sırayla yüklenir: önce temel, sonra düzen, sonra paneller -->
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/layout.css">
@@ -29,8 +37,9 @@
         <div class="lang" id="lang"></div>
 
         <div class="main__brand">
+          <!-- versiyon aynı zamanda depo linki -->
+          <a class="main__version" id="version" target="_blank" rel="noopener noreferrer"></a>
           <h1 class="main__title" data-i18n="siteTitle"></h1>
-          <span class="main__version" id="version"></span>
         </div>
       </header>
 

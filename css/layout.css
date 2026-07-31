@@ -86,6 +86,8 @@
     scroll-snap-type: y mandatory;
     overscroll-behavior-y: contain;  /* en alttan aşağı çekince sayfa yenilenmesin */
 
+    /* Native çubuk gizli: yerine .scroll-rail kullanılıyor. Sebebi iOS'un
+       dokunmatik kaydırma çubuklarını boyamaya izin vermemesi (scrollRail.js). */
     scrollbar-width: none;
   }
   .app::-webkit-scrollbar { display: none; }

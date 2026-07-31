@@ -1,0 +1,36 @@
+/* ============================================================================
+   scroll-rail.css — mobildeki kaydırma göstergesi
+   Sadece mobilde görünür; masaüstünde .app kaymadığı için gereksiz.
+   ============================================================================ */
+
+.scroll-rail { display: none; }
+
+@media (max-width: 860px) {
+  .scroll-rail {
+    display: block;
+    position: fixed;
+    top: 0;
+    right: 3px;
+    width: 3px;
+    height: 100dvh;
+    padding-block: 8px;
+
+    z-index: 20;
+    pointer-events: none;   /* içeriğe dokunmayı engellemesin */
+    transition: opacity 0.2s ease;
+  }
+
+  .scroll-rail__thumb {
+    width: 100%;
+    border-radius: 2px;
+    background: var(--scroll-accent, var(--line));
+
+    /* Renk her panel geçişinde değişiyor; sert atlamak yerine yumuşasın */
+    transition: background-color 0.45s ease;
+  }
+}
+
+/* Hareket azaltma tercihinde renk anında değişsin, geçiş olmasın */
+@media (prefers-reduced-motion: reduce) {
+  .scroll-rail__thumb { transition: none; }
+}

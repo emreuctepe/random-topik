@@ -14,6 +14,7 @@ import { createLogPanel } from './ui/logPanel.js';
 import { createAboutPanel } from './ui/aboutPanel.js';
 import { createCollectionPanel } from './ui/collectionPanel.js';
 import { createTabs } from './ui/tabs.js';
+import { createScrollRail } from './ui/scrollRail.js';
 
 const $ = (id) => document.getElementById(id);
 
@@ -68,6 +69,14 @@ function init() {
       logStore.add({ topicId, lang, text });
       collectionStore.markSeen(topicId);
     },
+  });
+
+  // Mobildeki kaydırma göstergesi — her panel geçişinde rengi yenilenir
+  createScrollRail({
+    scrollerEl: document.querySelector('.app'),
+    railEl: $('scroll-rail'),
+    thumbEl: $('scroll-rail-thumb'),
+    panelSelector: '.panel--main, .panel--about, .pane',
   });
 
   againBtn.addEventListener('click', () => slot.spin());

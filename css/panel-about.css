@@ -23,7 +23,7 @@
 }
 
 .about__line {
-  font-size: 0.82rem;
+  font-size: calc(0.82rem * var(--text-scale));
   line-height: 1.75;
   color: var(--fg-dim);
   text-wrap: pretty;
@@ -37,5 +37,6 @@
     overscroll-behavior-y: auto;
   }
 
-  .about__line { font-size: 0.95rem; }   /* tam ekranda daha rahat okunsun */
+  /* tam ekranda daha rahat okunsun */
+  .about__line { font-size: calc(0.95rem * var(--text-scale)); }
 }

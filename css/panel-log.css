@@ -20,7 +20,7 @@
 
 .log {
   font-family: var(--font-log);
-  font-size: 0.78rem;   /* Japonca karakterler daha küçükte okunmuyordu */
+  font-size: calc(0.78rem * var(--text-scale));
   line-height: 1.95;
   color: var(--fg-dim);
 }
@@ -66,7 +66,7 @@
 /* Liste boşken (dekoratif değil, yazı — okunur bir renk kullan) */
 .log__empty {
   font-family: var(--font-log);
-  font-size: 0.78rem;
+  font-size: calc(0.78rem * var(--text-scale));
   color: var(--fg-faint);
 }
 .log__empty[hidden] { display: none; }

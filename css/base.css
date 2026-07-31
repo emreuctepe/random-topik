@@ -27,11 +27,24 @@
   --font-log:  ui-monospace, SFMono-Regular, Menlo, Consolas,
                "Noto Sans JP", "Hiragino Sans", "Yu Gothic UI", Meiryo, monospace;
 
+  /* --- Yazı ölçeği ---
+     Japonca karakterler aynı puntoda Latin harflerden daha yoğun ve küçük
+     görünür (bir karede çok daha fazla çizgi var). Dil jp'ye geçince yazılar
+     bu katsayı kadar büyür — sadece punto, yerleşim ölçüleri sabit kalır.
+     Daha büyük/küçük istersen tek değişecek yer burası. */
+  --text-scale: 1;
+
   /* --- Ölçüler --- */
   --gap:       clamp(1.25rem, 3vw, 2.5rem);  /* sütunlar arası boşluk */
   --pad:       clamp(1.25rem, 2.5vw, 2rem);  /* panel iç boşluğu */
   --slot-row:  3.25rem;                      /* slot satır yüksekliği (JS bunu ölçer) */
   --radius:    6px;
+}
+
+/* Japonca seçiliyken yazılar büyür. i18n.js dil değişince <html lang> değerini
+   güncellediği için ek bir sınıfa gerek yok — :lang(ja) kendiliğinden eşleşir. */
+:root:lang(ja) {
+  --text-scale: 1.18;
 }
 
 /* --- Reset --- */
@@ -74,7 +87,7 @@ a { color: inherit; text-decoration: none; }
 
 /* Panel başlıkları (bu site neden var? / Kayıt) */
 .panel__title {
-  font-size: 0.9rem;
+  font-size: calc(0.9rem * var(--text-scale));
   font-weight: 500;
   color: var(--fg);
   letter-spacing: 0.01em;

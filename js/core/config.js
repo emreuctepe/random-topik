@@ -7,7 +7,7 @@
  * Sürüm numarası — başlığın solunda, depo linki olarak görünür.
  * HER değişiklikte son haneyi bir artır: 0.1.1 -> 0.1.2 -> 0.1.3 ...
  */
-export const APP_VERSION = '0.1.3';
+export const APP_VERSION = '0.1.4';
 
 /** Versiyon göstergesinin tıklandığında gideceği adres. */
 export const REPO_URL = 'https://github.com/emreuctepe/random-topik';
@@ -48,6 +48,7 @@ export const SPIN = {
  */
 export const STORAGE = {
   mode: 'memory',
-  key:  'randomTopik.log',
-  max:  200,          // en fazla kaç kayıt tutulsun
+  logKey:        'randomTopik.log',
+  collectionKey: 'randomTopik.collection',
+  max: 200,           // log'da en fazla kaç kayıt tutulsun
 };

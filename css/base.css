@@ -13,6 +13,8 @@
   --fg-faint:  #7d8792;   /* üçüncül: versiyon, boş liste (5.1:1) */
   --line:      #4d555e;   /* dekoratif: çizgiler, noktalar, kenarlıklar */
   --surface:   #1b1f23;   /* menü hover zemini */
+  --cell-off:  #242930;   /* koleksiyon: çıkmamış kare */
+  --cell-on:   #7d8792;   /* koleksiyon: çıkmış kare */
   --focus:     #7aa2ff;   /* klavye odak halkası */
 
   /* --- Fontlar ---

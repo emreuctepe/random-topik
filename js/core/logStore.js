@@ -17,7 +17,7 @@
 import { STORAGE } from './config.js';
 import { createStorage } from './storage.js';
 
-const storage = createStorage(STORAGE);
+const storage = createStorage({ mode: STORAGE.mode, key: STORAGE.logKey });
 const subscribers = new Set();
 
 let records = storage.load();

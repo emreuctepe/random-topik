@@ -17,9 +17,11 @@
   <!-- CSS dosyaları sırayla yüklenir: önce temel, sonra düzen, sonra paneller -->
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/tabs.css">
   <link rel="stylesheet" href="css/panel-about.css">
   <link rel="stylesheet" href="css/panel-main.css">
   <link rel="stylesheet" href="css/panel-log.css">
+  <link rel="stylesheet" href="css/panel-collection.css">
 </head>
 <body>
   <main class="app">
@@ -60,14 +62,32 @@
       </div>
     </section>
 
-    <!-- ============ SAĞ: kayıt ============ -->
-    <section class="panel panel--log">
-      <h2 class="panel__title" data-i18n="logTitle"></h2>
-      <div class="log__scroll">
-        <ol class="log" id="log-list"></ol>
-        <p class="log__empty" id="log-empty" data-i18n="logEmpty"></p>
-      </div>
-    </section>
+    <!-- ============ SAĞ: kayıt + koleksiyon ============
+         Masaüstünde ikili sekme; mobilde sarmalayıcı `display: contents` ile
+         yok olur ve iki bölme ayrı birer tam ekran panel olur (layout.css). -->
+    <div class="panel panel--side">
+      <div class="tabs" id="tabs"></div>   <!-- sekme düğmeleri JS ile basılır -->
+
+      <section class="pane pane--log pane--active" id="pane-log">
+        <div class="pane__head">
+          <h2 class="pane__title" data-i18n="logTitle"></h2>
+        </div>
+        <div class="log__scroll">
+          <ol class="log" id="log-list"></ol>
+          <p class="log__empty" id="log-empty" data-i18n="logEmpty"></p>
+        </div>
+      </section>
+
+      <section class="pane pane--collection" id="pane-collection">
+        <div class="pane__head">
+          <h2 class="pane__title" data-i18n="collectionTitle"></h2>
+          <span class="collection__count" id="collection-count"></span>
+        </div>
+        <!-- kareler sözlükten türetilir; sayaç bilgiyi zaten yazıyor,
+             o yüzden ızgara ekran okuyucuya tekrar okutulmuyor -->
+        <ul class="collection" id="collection" aria-hidden="true"></ul>
+      </section>
+    </div>
 
   </main>
 

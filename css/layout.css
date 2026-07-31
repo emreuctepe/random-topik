@@ -27,9 +27,32 @@
 
 /* Sol ve sağ sütun ekran yüksekliğini aşmasın, kendi içinde kaysın */
 .panel--about,
-.panel--log {
+.panel--side {
   max-height: calc(100dvh - var(--gap) * 2);
 }
+
+/* --- Sekmeli bölmeler (Kayıt / Koleksiyon) ---
+   Masaüstünde aynı anda tek bölme görünür; başlık görevini sekmeler görür. */
+.pane {
+  display: none;
+  flex: 1;
+  min-height: 0;
+  flex-direction: column;
+  gap: 1rem;
+}
+.pane--active { display: flex; }
+
+.pane__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+/* Masaüstünde bölme başlıkları gizli (sekmeler onların yerine geçiyor).
+   Kayıt bölmesinin başlığında sayaç da olmadığı için satırın tamamı kalkar. */
+.pane__title { display: none; }
+.pane--log .pane__head { display: none; }
 
 .panel--main {
   min-height: calc(100dvh - var(--gap) * 2);
@@ -77,8 +100,29 @@
     scroll-snap-stop: always;        /* bir hamlede tek panel geçilsin */
   }
 
-  /* mobilde önce slot görünsün, sonra açıklama, sonra kayıt */
-  .panel--main  { order: 1; min-height: 0; }
-  .panel--about { order: 2; justify-content: center; }
-  .panel--log   { order: 3; }
+  /* Sarmalayıcı yok olur, iki bölme doğrudan .app'in çocuğu olur —
+     böylece hem `order` hem de scroll-snap onlara uygulanabilir. */
+  .panel--side { display: contents; }
+  /* .tabs'ı gizleyen kural tabs.css'te — bu dosyadan sonra yüklendiği için
+     buraya yazılsa cascade'de eziliyor. */
+
+  .pane {
+    display: flex;              /* aktif olmayan bölme de görünsün */
+    flex: 0 0 auto;
+    height: 100dvh;
+    padding: var(--gap);
+
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+  }
+
+  /* Mobilde sekme yok, o yüzden her bölme kendi başlığını gösterir */
+  .pane__title { display: block; }
+  .pane--log .pane__head { display: flex; }
+
+  /* sıra: slot -> açıklama -> kayıt -> koleksiyon */
+  .panel--main     { order: 1; min-height: 0; }
+  .panel--about    { order: 2; justify-content: center; }
+  .pane--log       { order: 3; }
+  .pane--collection{ order: 4; }
 }

@@ -6,11 +6,14 @@
 import { APP_VERSION, REPO_URL } from './core/config.js';
 import { getLangMeta, onLangChange, t } from './core/i18n.js';
 import * as logStore from './core/logStore.js';
+import * as collectionStore from './core/collectionStore.js';
 
 import { createLangSwitcher } from './ui/langSwitcher.js';
 import { createSlot } from './ui/slot.js';
 import { createLogPanel } from './ui/logPanel.js';
 import { createAboutPanel } from './ui/aboutPanel.js';
+import { createCollectionPanel } from './ui/collectionPanel.js';
+import { createTabs } from './ui/tabs.js';
 
 const $ = (id) => document.getElementById(id);
 
@@ -39,6 +42,16 @@ function init() {
   createAboutPanel($('about'));
   createLangSwitcher($('lang'));
   createLogPanel({ listEl: $('log-list'), emptyEl: $('log-empty') });
+  createCollectionPanel({ gridEl: $('collection'), countEl: $('collection-count') });
+
+  // Masaüstündeki ikili sekme (mobilde CSS gizliyor)
+  createTabs({
+    rootEl: $('tabs'),
+    items: [
+      { paneId: 'pane-log',        labelKey: 'logTitle' },
+      { paneId: 'pane-collection', labelKey: 'collectionTitle' },
+    ],
+  });
 
   const slot = createSlot({
     reelEl: $('slot-reel'),
@@ -49,9 +62,11 @@ function init() {
       againBtn.disabled = spinning;
     },
 
-    // Slot durunca kayıt eklenir — metin o anki dilde donar
+    // Slot durunca hem kayıt eklenir (metin o anki dilde donar)
+    // hem de konu koleksiyonda işaretlenir
     onResult: ({ topicId, lang, text }) => {
       logStore.add({ topicId, lang, text });
+      collectionStore.markSeen(topicId);
     },
   });
 

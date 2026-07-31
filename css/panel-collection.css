@@ -1,0 +1,59 @@
+/* ============================================================================
+   panel-collection.css — koleksiyon kareleri
+
+   Izgara `auto-fill` ile kuruldu: sütun sayısı kap genişliğine göre kendi
+   kendine ayarlanır. Yani hem dar masaüstü sütununda hem de tam ekran mobilde
+   ayrı bir ayar gerektirmez; sözlüğe kelime eklendikçe satırlar uzar.
+   ============================================================================ */
+
+.collection {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(1.15rem, 1fr));
+  gap: 0.4rem;
+  align-content: start;
+
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+
+  scrollbar-width: thin;
+  scrollbar-color: var(--line) transparent;
+}
+.collection::-webkit-scrollbar { width: 6px; }
+.collection::-webkit-scrollbar-thumb {
+  background: var(--line);
+  border-radius: 3px;
+}
+
+.collection__cell {
+  aspect-ratio: 1;
+  border-radius: 3px;
+  background: var(--cell-off);
+  transition: background 0.2s ease;
+}
+
+/* Çıkmış konular */
+.collection__cell.is-found {
+  background: var(--cell-on);
+}
+
+/* "12/45" sayacı */
+.collection__count {
+  margin-left: auto;          /* başlık gizliyken (masaüstü) sağda kalsın */
+  font-family: var(--font-log);
+  font-size: calc(0.78rem * var(--text-scale));
+  color: var(--fg-faint);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+@media (max-width: 860px) {
+  .collection {
+    flex: 1;
+    grid-template-columns: repeat(auto-fill, minmax(1.4rem, 1fr));
+    gap: 0.5rem;
+
+    /* Izgara ucuna gelince kaydırma .app'e devredilsin ki panel geçişi kesilmesin */
+    overscroll-behavior-y: auto;
+  }
+}

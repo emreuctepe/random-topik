@@ -44,6 +44,12 @@ export const ui = {
     jp:  'まだ記録がありません',
   },
 
+  collectionTitle: {
+    tr:  'Koleksiyon',
+    eng: 'Collection',
+    jp:  'コレクション',
+  },
+
   again: {
     tr:  'tekrar seç',
     eng: 'pick again',

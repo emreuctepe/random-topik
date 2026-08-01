@@ -1,6 +1,6 @@
 /* ============================================================================
-   tabs.css — masaüstündeki ikili sekme çubuğu (Kayıt / Koleksiyon)
-   Mobilde gizlenir (bkz. layout.css) — orada iki bölme ayrı panel oluyor.
+   tabs.css — masaüstündeki sekme çubuğu (Koleksiyon / Kayıt / Hakkında)
+   Mobilde gizlenir (bkz. layout.css) — orada her bölme ayrı panel oluyor.
    ============================================================================ */
 
 .tabs {

@@ -1,12 +1,22 @@
 /* ============================================================================
    langSwitcher.js — "tr ▾" dropdown'ı
 
+   Fare imleci üzerine gelince kendiliğinden açılır; tıklamak da çalışır.
    Küçük ama klavyeyle de kullanılabilir:
    Enter/Space açar, ↑ ↓ gezer, Enter seçer, Esc kapatır, dışarı tıklamak kapatır.
    ========================================================================== */
 
 import { LANGS } from '../core/config.js';
 import { getLang, setLang, onLangChange, t } from '../core/i18n.js';
+
+/** İmleçle açma yalnızca gerçek hover'ı olan cihazlarda: dokunmatikte
+ *  parmak dokunuşu hem hover hem tıklama sayılır ve menü açılır açılmaz
+ *  kapanırdı. */
+const canHover = window.matchMedia('(hover: hover) and (pointer: fine)');
+
+/** İmleç butondan menüye geçerken aradaki boşlukta menü kapanmasın diye
+ *  kapanışa verilen küçük tolerans (ms). */
+const LEAVE_DELAY = 140;
 
 export function createLangSwitcher(root) {
   root.innerHTML = '';
@@ -58,6 +68,8 @@ export function createLangSwitcher(root) {
   root.append(button, menu);
 
   /* --- Durum --- */
+  let leaveTimer = 0;
+
   function syncLabels() {
     const code = getLang();
     const active = LANGS.find((lang) => lang.code === code);
@@ -73,14 +85,20 @@ export function createLangSwitcher(root) {
     return !menu.hidden;
   }
 
-  function open() {
+  /** focus: hover ile açılışta seçeneğe odaklanmıyoruz — imleçle gezerken
+   *  odağın kendiliğinden yer değiştirmesi beklenmedik olur. */
+  function open({ focus = true } = {}) {
+    clearTimeout(leaveTimer);
     menu.hidden = false;
     button.setAttribute('aria-expanded', 'true');
+
+    if (!focus) return;
     const selected = options.find((o) => o.getAttribute('aria-selected') === 'true');
     (selected ?? options[0])?.focus();
   }
 
   function close({ focusButton = false } = {}) {
+    clearTimeout(leaveTimer);
     menu.hidden = true;
     button.setAttribute('aria-expanded', 'false');
     if (focusButton) button.focus();
@@ -93,6 +111,22 @@ export function createLangSwitcher(root) {
   }
 
   /* --- Olaylar --- */
+
+  // İmleç butona/menüye girince aç, alandan çıkınca kapat. Menü butonun
+  // DOM çocuğu olduğu için menüde gezerken pointerleave tetiklenmez;
+  // aradaki 6px'lik boşluğu da menünün görünmez köprüsü kapatıyor
+  // (panel-main.css -> .lang__menu::before). Yine de küçük bir gecikme
+  // bırakıyoruz: imleç köşeden çıkıp hemen dönerse menü yerinde kalsın.
+  root.addEventListener('pointerenter', () => {
+    if (canHover.matches) open({ focus: false });
+  });
+
+  root.addEventListener('pointerleave', () => {
+    if (!canHover.matches || !isOpen()) return;
+    clearTimeout(leaveTimer);
+    leaveTimer = setTimeout(close, LEAVE_DELAY);
+  });
+
   button.addEventListener('click', () => (isOpen() ? close() : open()));
 
   button.addEventListener('keydown', (event) => {

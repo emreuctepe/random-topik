@@ -27,13 +27,7 @@
 <body>
   <main class="app">
 
-    <!-- ============ SOL: bu site neden var? ============ -->
-    <section class="panel panel--about">
-      <h2 class="panel__title" data-i18n="aboutTitle"></h2>
-      <div class="about" id="about"></div>
-    </section>
-
-    <!-- ============ ORTA: dil + slot ============ -->
+    <!-- ============ SOL: dil + slot ============ -->
     <section class="panel panel--main">
       <header class="main__head">
         <!-- dil dropdown'ı buraya JS ile basılır -->
@@ -63,13 +57,25 @@
       </div>
     </section>
 
-    <!-- ============ SAĞ: kayıt + koleksiyon ============
-         Masaüstünde ikili sekme; mobilde sarmalayıcı `display: contents` ile
-         yok olur ve iki bölme ayrı birer tam ekran panel olur (layout.css). -->
+    <!-- ============ SAĞ: koleksiyon + kayıt + hakkında ============
+         Masaüstünde üçlü sekme; mobilde sarmalayıcı `display: contents` ile
+         yok olur ve üç bölme ayrı birer tam ekran panel olur (layout.css).
+         Bölme sırası sekme sırasıyla aynı; mobildeki sıra `order` ile ayrı
+         belirlenir (layout.css). -->
     <div class="panel panel--side">
       <div class="tabs" id="tabs"></div>   <!-- sekme düğmeleri JS ile basılır -->
 
-      <section class="pane pane--log pane--active" id="pane-log">
+      <section class="pane pane--collection pane--active" id="pane-collection">
+        <div class="pane__head">
+          <h2 class="pane__title" data-i18n="collectionTitle"></h2>
+          <span class="collection__count" id="collection-count"></span>
+        </div>
+        <!-- kareler sözlükten türetilir; sayaç bilgiyi zaten yazıyor,
+             o yüzden ızgara ekran okuyucuya tekrar okutulmuyor -->
+        <ul class="collection" id="collection" aria-hidden="true"></ul>
+      </section>
+
+      <section class="pane pane--log" id="pane-log">
         <div class="pane__head">
           <h2 class="pane__title" data-i18n="logTitle"></h2>
         </div>
@@ -79,14 +85,11 @@
         </div>
       </section>
 
-      <section class="pane pane--collection" id="pane-collection">
+      <section class="pane pane--about" id="pane-about">
         <div class="pane__head">
-          <h2 class="pane__title" data-i18n="collectionTitle"></h2>
-          <span class="collection__count" id="collection-count"></span>
+          <h2 class="pane__title" data-i18n="aboutTitle"></h2>
         </div>
-        <!-- kareler sözlükten türetilir; sayaç bilgiyi zaten yazıyor,
-             o yüzden ızgara ekran okuyucuya tekrar okutulmuyor -->
-        <ul class="collection" id="collection" aria-hidden="true"></ul>
+        <div class="about" id="about"></div>
       </section>
     </div>
 

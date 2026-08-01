@@ -1,13 +1,12 @@
 /* ============================================================
-   layout.css — 3 sütunlu düzen ve mobilde alt alta yığılma
+   layout.css — 2 sütunlu düzen ve mobilde alt alta yığılma
    ============================================================ */
 
 .app {
   display: grid;
   grid-template-columns:
-    minmax(190px, 1fr)      /* sol  : bu site neden var? */
-    minmax(300px, 1.5fr)    /* orta : slot              */
-    minmax(190px, 1fr);     /* sağ  : kayıt             */
+    minmax(300px, 1.5fr)    /* sol : slot                            */
+    minmax(230px, 1fr);     /* sağ : koleksiyon / kayıt / hakkında   */
   gap: var(--gap);
   align-items: start;
 
@@ -25,13 +24,28 @@
   min-height: 0;   /* grid içinde iç scroll'un çalışması için şart */
 }
 
-/* Sol ve sağ sütun ekran yüksekliğini aşmasın, kendi içinde kaysın */
-.panel--about,
+/* Sağ sütun ekran yüksekliğini aşmasın, kendi içinde kaysın.
+   `stretch`: içerik kısa olsa bile sütun satırın tamamını kaplasın —
+   yanındaki dikey ayraç yarıda kesilmesin. */
 .panel--side {
+  position: relative;
+  align-self: stretch;
   max-height: calc(100dvh - var(--gap) * 2);
 }
 
-/* --- Sekmeli bölmeler (Kayıt / Koleksiyon) ---
+/* Slot ile sekmeler arasındaki dikey ayraç — slot çizgileriyle aynı ton.
+   İki sütunun arasındaki boşluğun tam ortasına oturur. */
+.panel--side::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: calc(var(--gap) / -2);
+  width: 1px;
+  background: var(--line);
+}
+
+/* --- Sekmeli bölmeler (Koleksiyon / Kayıt / Hakkında) ---
    Masaüstünde aynı anda tek bölme görünür; başlık görevini sekmeler görür. */
 .pane {
   display: none;
@@ -50,9 +64,10 @@
 }
 
 /* Masaüstünde bölme başlıkları gizli (sekmeler onların yerine geçiyor).
-   Kayıt bölmesinin başlığında sayaç da olmadığı için satırın tamamı kalkar. */
+   Başlık satırı sadece koleksiyonda kalır: orada sayaç da var. */
+.pane__head  { display: none; }
 .pane__title { display: none; }
-.pane--log .pane__head { display: none; }
+.pane--collection .pane__head { display: flex; }
 
 .panel--main {
   min-height: calc(100dvh - var(--gap) * 2);
@@ -102,9 +117,11 @@
     scroll-snap-stop: always;        /* bir hamlede tek panel geçilsin */
   }
 
-  /* Sarmalayıcı yok olur, iki bölme doğrudan .app'in çocuğu olur —
-     böylece hem `order` hem de scroll-snap onlara uygulanabilir. */
+  /* Sarmalayıcı yok olur, üç bölme doğrudan .app'in çocuğu olur —
+     böylece hem `order` hem de scroll-snap onlara uygulanabilir.
+     Dikey ayraç da masaüstüne ait: burada sütun diye bir şey yok. */
   .panel--side { display: contents; }
+  .panel--side::before { display: none; }
   /* .tabs'ı gizleyen kural tabs.css'te — bu dosyadan sonra yüklendiği için
      buraya yazılsa cascade'de eziliyor. */
 
@@ -119,12 +136,12 @@
   }
 
   /* Mobilde sekme yok, o yüzden her bölme kendi başlığını gösterir */
+  .pane__head  { display: flex; }
   .pane__title { display: block; }
-  .pane--log .pane__head { display: flex; }
 
-  /* sıra: slot -> açıklama -> kayıt -> koleksiyon */
+  /* sıra: slot -> hakkında -> kayıt -> koleksiyon */
   .panel--main     { order: 1; min-height: 0; }
-  .panel--about    { order: 2; justify-content: center; }
+  .pane--about     { order: 2; justify-content: center; }
   .pane--log       { order: 3; }
   .pane--collection{ order: 4; }
 }

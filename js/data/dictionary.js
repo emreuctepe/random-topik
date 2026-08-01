@@ -27,9 +27,9 @@ export const ui = {
   },
 
   aboutTitle: {
-    tr:  'bu site neden var?',
-    eng: 'why does this site exist?',
-    jp:  'このサイトについて',
+    tr:  'Hakkında',
+    eng: 'About',
+    jp:  'について',
   },
 
   logTitle: {

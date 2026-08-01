@@ -86,6 +86,18 @@
 }
 .lang__menu[hidden] { display: none; }
 
+/* Buton ile menü arasındaki 6px'lik boşluğu köprüleyen görünmez şerit.
+   Menü hover ile açıldığı için imleç bu aralıkta "dışarı çıkmış" sayılırsa
+   menü kapanırdı (langSwitcher.js). */
+.lang__menu::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 100%;
+  height: 6px;
+}
+
 .lang__option {
   display: flex;
   align-items: center;

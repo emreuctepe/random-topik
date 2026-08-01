@@ -87,8 +87,8 @@ a { color: inherit; text-decoration: none; }
 
 /* --- Ortak yardımcılar --- */
 
-/* Panel başlıkları (bu site neden var? / Kayıt) */
-.panel__title {
+/* Bölme başlıkları — mobilde sekmelerin yerine geçer (Koleksiyon / Kayıt / Hakkında) */
+.pane__title {
   font-size: calc(0.9rem * var(--text-scale));
   font-weight: 500;
   color: var(--fg);

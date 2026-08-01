@@ -45,12 +45,14 @@ function init() {
   createLogPanel({ listEl: $('log-list'), emptyEl: $('log-empty') });
   createCollectionPanel({ gridEl: $('collection'), countEl: $('collection-count') });
 
-  // Masaüstündeki ikili sekme (mobilde CSS gizliyor)
+  // Masaüstündeki üçlü sekme (mobilde CSS gizliyor).
+  // İlk sıradaki sekme açılışta seçili gelir.
   createTabs({
     rootEl: $('tabs'),
     items: [
-      { paneId: 'pane-log',        labelKey: 'logTitle' },
       { paneId: 'pane-collection', labelKey: 'collectionTitle' },
+      { paneId: 'pane-log',        labelKey: 'logTitle' },
+      { paneId: 'pane-about',      labelKey: 'aboutTitle' },
     ],
   });
 
@@ -76,7 +78,7 @@ function init() {
     scrollerEl: document.querySelector('.app'),
     railEl: $('scroll-rail'),
     thumbEl: $('scroll-rail-thumb'),
-    panelSelector: '.panel--main, .panel--about, .pane',
+    panelSelector: '.panel--main, .pane',
   });
 
   againBtn.addEventListener('click', () => slot.spin());

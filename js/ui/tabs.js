@@ -1,8 +1,8 @@
 /* ============================================================================
-   tabs.js — masaüstündeki ikili sekme (Kayıt / Koleksiyon)
+   tabs.js — masaüstündeki sekme çubuğu (Koleksiyon / Kayıt / Hakkında)
 
-   Sekmeler yalnızca masaüstünde görünür. Mobilde CSS onları gizler ve iki
-   bölme de ayrı birer tam ekran panel olarak alt alta dizilir (layout.css),
+   Sekmeler yalnızca masaüstünde görünür. Mobilde CSS onları gizler ve her
+   bölme ayrı bir tam ekran panel olarak alt alta dizilir (layout.css),
    o yüzden burada mobil için özel bir iş yapılmıyor.
 
    Klavye: ← → ile sekmeler arasında gezilir, Home/End uçlara gider.

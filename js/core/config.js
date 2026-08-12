@@ -7,7 +7,7 @@
  * Sürüm numarası — başlığın solunda, depo linki olarak görünür.
  * HER değişiklikte son haneyi bir artır: 0.1.1 -> 0.1.2 -> 0.1.3 ...
  */
-export const APP_VERSION = '0.1.7';
+export const APP_VERSION = '0.1.9';
 
 /** Versiyon göstergesinin tıklandığında gideceği adres. */
 export const REPO_URL = 'https://github.com/emreuctepe/random-topik';
@@ -29,6 +29,14 @@ export const LANGS = [
 
 /** Açılışta seçili dil + çeviri eksikse düşülecek dil. */
 export const DEFAULT_LANG = 'tr';
+
+/**
+ * Sayfanın en üstündeki proje ilerleme çubuğu.
+ * value: 0-100 arası yüzde — proje ilerledikçe elle güncellenir.
+ */
+export const PROGRESS = {
+  value: 20,
+};
 
 /** Slot animasyonu ayarları. */
 export const SPIN = {

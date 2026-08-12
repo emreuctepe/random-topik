@@ -17,6 +17,7 @@
   <!-- CSS dosyaları sırayla yüklenir: önce temel, sonra düzen, sonra paneller -->
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/progress.css">
   <link rel="stylesheet" href="css/tabs.css">
   <link rel="stylesheet" href="css/panel-about.css">
   <link rel="stylesheet" href="css/panel-main.css">
@@ -26,6 +27,24 @@
 </head>
 <body>
   <main class="app">
+
+    <!-- ============ ÜST: proje ilerleme çubuğu ============
+         Kaydırma kabının (.app) İÇİNDE duruyor — mobilde aşağı kaydırınca
+         yukarıda kalıp gözden çıksın diye. Dışarıda olsaydı ekranın tepesine
+         çakılı kalırdı (mobilde kayan şey gövde değil, .app'in kendisi).
+         Yüzde js/core/config.js -> PROGRESS.value içinde; dolgunun rengi her
+         açılışta rastgele gelir. -->
+    <div class="progress">
+      <div class="progress__head">
+        <span class="progress__label" id="progress-label" data-i18n="progressTitle"></span>
+        <span class="progress__value" id="progress-value"></span>
+      </div>
+      <div class="progress__track" id="progress-track"
+           role="progressbar" aria-labelledby="progress-label"
+           aria-valuemin="0" aria-valuemax="100">
+        <div class="progress__fill" id="progress-fill"></div>
+      </div>
+    </div>
 
     <!-- ============ SOL: dil + slot ============ -->
     <section class="panel panel--main">

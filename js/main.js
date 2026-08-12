@@ -15,6 +15,7 @@ import { createAboutPanel } from './ui/aboutPanel.js';
 import { createCollectionPanel } from './ui/collectionPanel.js';
 import { createTabs } from './ui/tabs.js';
 import { createScrollRail } from './ui/scrollRail.js';
+import { createProgressBar } from './ui/progressBar.js';
 
 const $ = (id) => document.getElementById(id);
 
@@ -39,6 +40,13 @@ function init() {
   const versionEl = $('version');
   versionEl.textContent = `v${APP_VERSION}`;
   versionEl.href = REPO_URL;
+
+  // Sayfanın en üstündeki ilerleme çubuğu — yüzde config.js -> PROGRESS
+  createProgressBar({
+    trackEl: $('progress-track'),
+    fillEl:  $('progress-fill'),
+    valueEl: $('progress-value'),
+  });
 
   createAboutPanel($('about'));
   createLangSwitcher($('lang'));

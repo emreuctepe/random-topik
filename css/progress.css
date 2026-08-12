@@ -1,0 +1,100 @@
+/* ============================================================================
+   progress.css — sayfanın en üstündeki proje ilerleme çubuğu
+
+   Yüksekliği base.css'teki --progress-h ile sabit; içeriğe göre büyümüyor
+   çünkü tam ekran paneller bu ölçüden hesaplanıyor.
+
+   .app'in ilk çocuğu. Masaüstünde ızgaranın tam genişliğine yayılıyor,
+   mobilde kaydırma akışının ilk parçası oluyor (aşağı kaydırınca yukarıda
+   kalıp gözden çıkıyor).
+   ============================================================================ */
+
+.progress {
+  /* Izgaranın iki sütununu da kapla, yatay dolguyu iptal et: çizgi kenardan
+     kenara gitsin ama yazılar altındaki panellerle aynı hizada dursun. */
+  grid-column: 1 / -1;
+  margin-inline: calc(var(--gap) * -1);
+
+  height: var(--progress-h);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;  /* çizgi hep en alta yapışsın, artan pay üstte kalsın */
+  gap: 0.35rem;
+
+  padding: 0.7rem var(--gap) 0;
+  background: var(--bg);
+}
+
+.progress__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.progress__label {
+  font-size: calc(0.72rem * var(--text-scale));
+  color: var(--fg-faint);
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+
+/* Yüzde — log'la aynı monospace, rakamlar eşit genişlikte (tabular-nums)
+   ki değer değişince etiket sağa sola oynamasın */
+.progress__value {
+  font-family: var(--font-log);
+  font-size: calc(0.72rem * var(--text-scale));
+  color: var(--fg-dim);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.progress__track {
+  height: 2px;
+  background: var(--cell-off);   /* koleksiyondaki boş kareyle aynı ton */
+}
+
+/* İki değeri de JS yazıyor (progressBar.js): --progress-value yüzde,
+   --progress-accent renk.
+
+   Açılıştaki dolma bir CSS animasyonu — bilerek geçiş (transition) değil.
+   Geçiş için genişliği önce 0, sonra hedef değer yapmak gerekirdi; ikinci
+   yazma bir rAF'a bağlı kalır ve sayfa arka plan sekmesinde açılırsa
+   (arka planda rAF çalışmaz) çubuk boş kalırdı. Böyle yazınca duran hâl
+   doğrudan CSS'te: animasyon hiç oynamasa bile çubuk dolu.
+
+   Yalnızca `from` verilmiş bir keyframe'in bitiş değeri elemanın kendi
+   genişliğidir — yani hedef yüzde tek yerde duruyor.
+
+   `animation-fill-mode` bilerek yok: `both` yazılsaydı animasyon başlayana
+   kadar `from` (yani 0) geçerli olurdu ve arka plan sekmesinde çubuk yine
+   boş kalırdı. Modsuz hâlde duran genişlik hep hedef yüzde.
+
+   Hareket azaltma tercihinde base.css süreyi zaten sıfırlıyor. */
+.progress__fill {
+  width: var(--progress-value, 0);
+  height: 100%;
+  background: var(--progress-accent, var(--line));
+  animation: progress-fill 0.7s ease;
+}
+
+@keyframes progress-fill {
+  from { width: 0; }
+}
+
+/* --- Mobil ---
+   Çubuk kaydırma akışının ilk parçası: ekranın tepesine yapışmıyor, aşağı
+   kaydırınca panellerle birlikte yukarı çıkıp kayboluyor.
+
+   Mıknatıs noktası burası (panel--main'de değil, bkz. layout.css): çubuk +
+   slot birlikte tam bir ekran ediyor, açılışta ikisi birden görünüyor. */
+@media (max-width: 860px) {
+  .progress {
+    margin-inline: 0;              /* mobilde .app'in yatay dolgusu yok */
+    scroll-snap-align: start;
+
+    /* .app dikey flex ve içerik ekranı aşıyor; çubuk da esneyip kısalmasın —
+       yüksekliği paneller bu ölçüden hesaplandığı için sabit kalmak zorunda. */
+    flex: 0 0 auto;
+  }
+}

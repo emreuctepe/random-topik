@@ -26,6 +26,12 @@ export const ui = {
     jp:  'ランダムトピック',
   },
 
+  progressTitle: {
+    tr:  'proje ilerleme',
+    eng: 'project progress',
+    jp:  'プロジェクト進捗',
+  },
+
   aboutTitle: {
     tr:  'Hakkında',
     eng: 'About',

@@ -13,7 +13,10 @@
   min-height: 100dvh;
   max-width: 1400px;
   margin-inline: auto;
-  padding: var(--gap);
+
+  /* Üstte dolgu yok: ilk çocuk ilerleme çubuğu ve o sayfanın en tepesine
+     yaslanıyor; kendi iç dolgusunu taşıyor (progress.css). */
+  padding: 0 var(--gap) var(--gap);
 }
 
 .panel {
@@ -30,7 +33,7 @@
 .panel--side {
   position: relative;
   align-self: stretch;
-  max-height: calc(100dvh - var(--gap) * 2);
+  max-height: calc(var(--screen) - var(--gap) * 2);
 }
 
 /* Slot ile sekmeler arasındaki dikey ayraç — slot çizgileriyle aynı ton.
@@ -70,7 +73,7 @@
 .pane--collection .pane__head { display: flex; }
 
 .panel--main {
-  min-height: calc(100dvh - var(--gap) * 2);
+  min-height: calc(var(--screen) - var(--gap) * 2);
 }
 
 /* ============ MOBİL: tam ekran panel + mıknatıslı kaydırma ============
@@ -117,6 +120,15 @@
     scroll-snap-stop: always;        /* bir hamlede tek panel geçilsin */
   }
 
+  /* Slot ilk ekranı ilerleme çubuğuyla paylaşıyor: çubuk + slot = tam ekran.
+     Mıknatıs noktası da çubuğun kendisi (progress.css) — burası snap noktası
+     olsaydı çubuk kaydırmanın ilk hamlesinde tek başına yukarı kayar,
+     ekranın altında bir sonraki panelden çubuk boyu bir şerit görünürdü. */
+  .panel--main {
+    height: var(--screen);
+    scroll-snap-align: none;
+  }
+
   /* Sarmalayıcı yok olur, üç bölme doğrudan .app'in çocuğu olur —
      böylece hem `order` hem de scroll-snap onlara uygulanabilir.
      Dikey ayraç da masaüstüne ait: burada sütun diye bir şey yok. */
@@ -128,7 +140,7 @@
   .pane {
     display: flex;              /* aktif olmayan bölme de görünsün */
     flex: 0 0 auto;
-    height: 100dvh;
+    height: 100dvh;             /* çubuk yukarıda kaldı, tam ekran onların */
     padding: var(--gap);
 
     scroll-snap-align: start;

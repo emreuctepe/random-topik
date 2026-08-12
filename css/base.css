@@ -41,6 +41,17 @@
   --pad:       clamp(1.25rem, 2.5vw, 2rem);  /* panel iç boşluğu */
   --slot-row:  3.25rem;                      /* slot satır yüksekliği (JS bunu ölçer) */
   --radius:    6px;
+
+  /* Sayfanın en üstündeki ilerleme çubuğunun yüksekliği. Sabit tutuluyor:
+     tam ekran panellerin boyu buna göre hesaplanıyor, içerikle birlikte
+     büyüseydi mobildeki mıknatıs noktaları kayardı. Japoncada yazı büyüdüğü
+     için biraz pay bırakıldı. */
+  --progress-h: 2.75rem;
+
+  /* Çubuktan artan ekran yüksekliği. Çubukla ekranı paylaşan yerler bunu
+     kullanır: masaüstünde iki sütun, mobilde ilk panel (slot). Diğer mobil
+     paneller çubuğun altında kalmadığı için tam 100dvh. */
+  --screen: calc(100dvh - var(--progress-h));
 }
 
 /* Japonca seçiliyken yazılar büyür. i18n.js dil değişince <html lang> değerini
